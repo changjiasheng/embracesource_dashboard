@@ -1,0 +1,11 @@
+2015-2-27-2015-2-28 changjiasheng
+1、添加Drage功能
+2、添加列功能
+3、添加TextBox功能
+
+修改文件
+index.html
+dashboard.js
+app.js中修改关闭按钮由原来的隐藏改为删除
+
+https://github.com/changjiasheng/embracesource_dashboard.git
