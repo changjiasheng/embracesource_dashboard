@@ -10,3 +10,18 @@ dashboard.js
 app.js中修改关闭按钮由原来的隐藏改为删除
 
 https://github.com/changjiasheng/embracesource_dashboard.git
+
+2015-3-5 qianjinke
+AdminLTE集成Echarts图表 
+下载Echarts2.2.0：https://github.com/ecomfe/echarts/tree/2.2.0
+下载esl.js
+index.html中引入文件：
+      echarts.js和esl.js
+添加文件：
+charts.js 初始化echarts配置以及初始化图表
+暂时在index.html中添加div，实现echarts画图，实现条形图、折线图和饼图。
+
+2015-3-6 qianjinke
+AdminLTE集成Echarts画图表，添加面板
+修改charts.js，只保留初始化代码，对echarts配置进行初始化
+修改dashboard.js,在添加行的模板中添加echarts的添加选项，添加图表的实现
