@@ -308,7 +308,7 @@ $(function () {
                  ' <h3 class="box-title">Default Box (button tooltip)</h3>'+
                   '<div class="box-tools pull-right">'+
                    ' <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>'+
-                    '<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'+
+                   '<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'+
                     '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeSmall(this);" ><i class="fa fa-arrow-left"></i></button>'+
                     '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeLarge(this);" ><i class="fa fa-arrow-right"></i></button>'+
                   '</div>'+
@@ -359,32 +359,32 @@ $(function () {
               '<h3 class="box-title">ECharts - '+type+'Chart</h3>'+
               '<div class="box-tools pull-right">'+
                 '<button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>'+
-                ' <button class="btn btn-box-tool change-text" data-widget="edit"  data-toggle="modal" data-target="#echarts"><i class="fa fa-edit"></i></button>'+
+                ' <button class="btn btn-box-tool" data-widget="edit"  data-toggle="modal" data-target="#echarts"><i class="fa fa-edit"></i></button>'+
                 '<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'+
                 '<button class="btn btn-box-tool" onclick="javascript:Dashboard.chartSmall(this,\''+type+'\');" ><i class="fa fa-arrow-left"></i></button>'+
                 '<button class="btn btn-box-tool" onclick="javascript:Dashboard.chartLarge(this,\''+type+'\');" ><i class="fa fa-arrow-right"></i></button>'+
-                '</div>'+
-                '</div>'+
-                '<div class="box-body charts">'+
-                  '<div  style="width:100%;height:100%;z-Index:-1;border:1px solid #ccc;padding:10px;overflow:hidden"></div>'+ 
-                '</div><!-- /.box-body-->'+
-              '</div><!-- /.box -->';
-               ' <div class="modal fade" id="echarts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-               ' <div class="modal-dialog">'+
-                '  <div class="modal-content">'+
-                 '   <div class="modal-header">'+
-                  '    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-                   '   <h4 class="modal-title" id="myModalLabel">Modal title</h4>'+
-                    '</div>'+
-                    '<div class="modal-body">...'+
-                   ' </div>'+
-                   ' <div class="modal-footer">'+
-                    '  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-                     ' <button type="button" class="btn btn-primary">Save changes</button>'+
-                   ' </div>'+
-                '  </div>'+
-               ' </div>'+
-            '  </div>';
+              '</div>'+
+            '</div>'+
+            '<div class="box-body charts">'+
+              '<div  style="width:100%;height:100%;z-Index:-1;border:1px solid #ccc;padding:10px;overflow:hidden"></div>'+ 
+            '</div><!-- /.box-body-->'+
+          '</div><!-- /.box -->'+
+            ' <div class="modal fade" id="echarts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+            ' <div class="modal-dialog">'+
+             '  <div class="modal-content">'+
+              '   <div class="modal-header">'+
+               '    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+                '   <h4 class="modal-title" id="myModalLabel">Modal title</h4>'+
+                 '</div>'+
+                 '<div class="modal-body">...'+
+                ' </div>'+
+                ' <div class="modal-footer">'+
+                 '  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+                  ' <button type="button" class="btn btn-primary">Save changes</button>'+
+                ' </div>'+
+             '  </div>'+
+            ' </div>'+
+         '  </div>';
 		  var target_id = $(obj).data("target_id");
 		  window.parent.$('#'+target_id).append(data);
 		  
