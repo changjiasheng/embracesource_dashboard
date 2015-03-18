@@ -360,12 +360,12 @@ $(function () {
               '<div class="box-tools pull-right">'+
                 '<button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>'+
                 '<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'+
-                '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeSmall(this);" ><i class="fa fa-arrow-left"></i></button>'+
-                '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeLarge(this);" ><i class="fa fa-arrow-right"></i></button>'+
+                '<button class="btn btn-box-tool" onclick="javascript:Dashboard.chartSmall(this,\''+type+'\');" ><i class="fa fa-arrow-left"></i></button>'+
+                '<button class="btn btn-box-tool" onclick="javascript:Dashboard.chartLarge(this,\''+type+'\');" ><i class="fa fa-arrow-right"></i></button>'+
               '</div>'+
             '</div>'+
-            '<div class="box-body" style="height:230px;width:480px;">'+
-              '<div id="'+type+'Area" style="width:100%;height:100%;z-Index:-1;border:1px solid #ccc;padding:10px;overflow:hidden"></div>'+
+            '<div class="box-body charts">'+
+              '<div  style="width:100%;height:100%;z-Index:-1;border:1px solid #ccc;padding:10px;overflow:hidden"></div>'+ 
             '</div><!-- /.box-body-->'+
           '</div><!-- /.box -->';
 		  var target_id = $(obj).data("target_id");
@@ -374,16 +374,14 @@ $(function () {
 		  window.parent.Dashboard.makeSortable();
 		  //make echarts
 		  window.parent.Dashboard.chartConfig();//add config
+		  $('.ui-sortable:last').find('.charts').css("width",'480px').css("height","220px");
 		  //add charts
 		  if(type =='bar'){
-			  window.parent.Dashboard.getChart('bar');
-			  $('#barArea').attr('id','barAreas');//改变id，防止与模板中的id重复
+			  window.parent.Dashboard.getChart('bar',obj);
 		  }else if(type == 'line'){
-			  window.parent.Dashboard.getChart('line');
-			  $('#lineArea').attr('id','lineAreas');
+			  window.parent.Dashboard.getChart('line',obj);
 		  }else if(type == 'pie'){
-			  window.parent.Dashboard.getChart('pie');
-			  $('#pieArea').attr('id','pieAreas');
+			  window.parent.Dashboard.getChart('pie',obj);
 		  }
 		  //TODO close and collapse active
 		  $.AdminLTE.boxWidget.activate();
@@ -400,8 +398,7 @@ $(function () {
     	    }
     	});
     },
-    //getChart
-    getChart:function(type){
+    getChart:function(type,obj){
     	require(
     	        [
     	            'echarts',
@@ -411,14 +408,18 @@ $(function () {
     	        ],
     	        function(ec) {
     	        	var eChart,option;
+    	        	var bbody = $(obj).closest('.box-header').next();//返回的应该是box-body
+	        		var sec = bbody.find('section:last');//返回的是section
+	        		var $chart = sec.find('.box-body').find('div');//返回的是boxbody下分配给图表的div
+	        		var chart = $chart.get(0);
     	        	if(type=='bar'){
-    	        		eChart = ec.init(document.getElementById('barArea'));
+    	        		eChart = ec.init(chart);
     	        		option = Dashboard.getBaroption();
     	        	}else if(type=='line'){
-    	        		eChart = ec.init(document.getElementById('lineArea'));
+    	        		eChart = ec.init(chart);
     	        		option = Dashboard.getLineoption();
     	        	}else if(type=='pie'){
-    	        		eChart = ec.init(document.getElementById('pieArea'));
+    	        		eChart = ec.init(chart);
     	        		option = Dashboard.getPieoption();
     	        	} 
     	        	
@@ -648,36 +649,94 @@ $(function () {
     	return option;
     },
     //TODO:to make panel small
-    resizeSmall :function(obj){
+    chartSmall :function(obj,type){
     	var rsize = $(obj).closest('.ui-sortable');
-//    	var rsize = $(obj).closest('.box-primary');
-//    	var chartSize = $(obj).closest('.box-body');
-    	var w = Math.floor(parseInt(rsize.width())*0.8);
-    	var h = Math.floor(parseInt(rsize.height())*0.8);
-    	 if(w > 330 && h > 120){
-//    		 rsize.height(h+"px"); 
-    		 rsize.width(w+"px"); 
-//    		 chartSize.width((w-40)+"px");
-//    		rsize.css("transform","scale(1,0.5)") ;//transform:scale(2,1.5)
-    	 }
+    	var w = rsize.width();
+    	var h = rsize.height();
+    	
+    	var charts = $(obj).closest('.ui-sortable').find('.charts');
+    	var cw = charts.width(),ch = charts.height();
+    	var chart = charts.find('div').get(0);
+    	var flag = true;
+    	if(w>490 &&  h>250){
+    		rsize.width(w - 10).height(h - 10);
+    		charts.width(cw - 10).height(ch - 10);
+    		flag = false;
+    	}else if(w>490 &&  h<=250){
+    		rsize.width(w - 10);
+    		charts.width(cw - 10);
+    		flag = false;
+    	}else{
+    		alert("已经无法缩小！");
+    		flag = true;
+    	}
+    	
+    	if(!flag){
+        	window.parent.Dashboard.reloadCharts(chart,type);
+    	}
     },
     //TODO:to make panel large
-    resizeLarge :function(obj){
-//    	var mm = $(obj).closest('.ui-resizable');
+    chartLarge :function(obj,type){
     	var rsize = $(obj).closest('.ui-sortable');
-//    	var rsize = $(obj).closest('.box-primary');
-//    	var chartSize = $(obj).closest('.box-body'); 
+    	var w = rsize.width();
+     	var h = rsize.height();
+     	
+     	var charts = $(obj).closest('.ui-sortable').find('.charts');
+     	var cw = charts.width(),ch = charts.height();
+     	var flag = true;
+     	if(h>=250 && h<=320){
+     		rsize.width(w + 10).height(h + 10);//1、设置section的大小
+     		charts.width(cw + 10).height(ch + 10); //2、设置图表的大小
+     		flag = false;
+     	}else if(h>320 && w<1070){
+     		rsize.width(w + 10);
+     		charts.width(cw + 10);
+     		flag = false;
+     	}else{
+     		alert("已经无法放大！");
+     		flag = true;
+     	}
+     	//3、重新加载图表
+     	var chart = charts.find('div').get(0);
+     	if(!flag){
+     		window.parent.Dashboard.reloadCharts(chart,type);
+     	}
+    },
+    reloadCharts : function(chart,type){
+    	var myChart = require('echarts').init(chart);
+     	if(type=='bar'){
+     		myChart.setOption(Dashboard.getBaroption());
+     	}else if(type=='line'){
+     		myChart.setOption(Dashboard.getLineoption());
+     	}else if(type=='pie'){
+     		myChart.setOption(Dashboard.getPieoption());
+     	}
+    },
+    resizeSmall :function(obj){
+    	var rsize = $(obj).closest('.ui-sortable');
+    	var w = rsize.width();
+    	var h = rsize.height();
     	
-    	var w = Math.floor(parseInt(rsize.width())*1.05);
-    	var h = Math.floor(parseInt(rsize.height())*1.05);
-     	 if(w<1100&&h<280){
-//    		 rsize.height(h+"px"); 
-    		 rsize.width(w+"px"); 
-//    		 chartSize.width((w-40)+"px");
-//    		 rsize.css("transform","scale(1,1.2)") ;
-     	    }/*else if(w<1100&&h>=180){
-     	    	rsize.width(w+"px"); 
-     	    }*/
+    	if(w>490 &&  h>250){
+    		rsize.width(w - 10).height(h - 10);
+    	}else if(w>490 &&  h<=250){
+    		rsize.width(w - 10);
+    	}else{
+    		alert("已经无法缩小！");
+    	}
+    },
+    resizeLarge :function(obj){
+    	var rsize = $(obj).closest('.ui-sortable');
+    	var w = rsize.width();
+     	var h = rsize.height();
+     	
+     	if(h>=250 && h<=320){
+     		rsize.width(w + 10).height(h + 10);
+     	}else if(h>320 && w<1070){
+     		rsize.width(w + 10);
+     	}else{
+     		alert("已经无法放大！");
+     	}
     },
     //TODO:makeSortable
     makeSortable : function(){
@@ -691,5 +750,5 @@ $(function () {
        $(".connectedSortable .box-header, .connectedSortable .nav-tabs-custom").css("cursor", "move");
        return false;
     }
-
    };
+

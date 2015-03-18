@@ -25,3 +25,9 @@ charts.js 初始化echarts配置以及初始化图表
 AdminLTE集成Echarts画图表，添加面板
 修改charts.js，只保留初始化代码，对echarts配置进行初始化
 修改dashboard.js,在添加行的模板中添加echarts的添加选项，添加图表的实现
+
+2015-3-17 - 3-18
+调整图表的缩放
+修改文件：dashboard.js
+将图表的缩放和普通模板缩放分开，图表的缩放，通过获取展示图表的元素并设置其宽高，以及设置图表所在的section的宽高
+
