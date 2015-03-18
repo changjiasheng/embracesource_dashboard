@@ -279,7 +279,26 @@ $(function () {
        
     },
 
-    //TODO:add text
+ // zhangshaoyu 2015-3-18 
+	// TODO:add textarea style
+	textclassSize : function() {
+		var sizeTextarea = $("#FontOptions").val();
+		$("#textarea").css({
+			"font-size" : sizeTextarea
+		});
+	},
+	// TODO:click the text to show fontsize
+	showOptions : function() {
+		$("#fontSize").show();
+		$("#FontOptions").show();
+	},
+	// TODO:click the markdown  to hide fontsize
+	hideOptions : function() {
+		$("#fontSize").hide();
+		$("#FontOptions").hide();
+	},
+	// zhangshaoyu 2015-3-18 
+	// TODO:add text and tabs
     addText: function(obj){
         var rand = Math.floor(Math.random() * 10 + 1);
 // 
@@ -302,30 +321,94 @@ $(function () {
         //         '</div><!-- /.box-body -->'+
         //       '</div></section>';
 
-         var data ='<section class="col-lg-4 connectedSortable ui-sortable">'+
-              '<div class="box ui-resizable">'+ 
-                '<div class="box-header">'+
-                 ' <h3 class="box-title">Default Box (button tooltip)</h3>'+
-                  '<div class="box-tools pull-right">'+
-                   ' <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>'+
-                   '<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'+
-                    '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeSmall(this);" ><i class="fa fa-arrow-left"></i></button>'+
-                    '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeLarge(this);" ><i class="fa fa-arrow-right"></i></button>'+
-                  '</div>'+
-                '</div>'+
-                '<div class="box-body">'+
-                 ' Box class: <code>.box</code>'+
-                  '<p>'+
-                   ' amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel.'+
-                    'berliner weisse wort chiller adjunct hydrometer alcohol aau!'+
-                    'sour/acidic sour/acidic chocolate malt ipa ipa hydrometer.'+
-                  '</p>'+
-                '</div><!-- /.box-body -->'+
-                '<div class="box-footer">'+
-                 ' <code>.box-footer</code>'+
-                '</div><!-- /.box-footer-->'+
-              '</div>'+
-          ' </div><!-- /.row (main row) -->';
+        var data = '<section class="col-lg-4  connectedSortable ui-sortable" >'
+			+ '<div class="box">'
+			+ '<div class="box-header">'
+			+ ' <h3 class="box-title"  id="box-title">Default Box (button tooltip)</h3>'
+			+ '<div class="box-tools pull-right">'
+			+ '<br>'
+			+ ' <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>'
+			+ ' <button class="btn btn-box-tool change-text" data-widget="edit"  data-toggle="modal" data-target="#model"><i class="fa fa-edit"></i></button>'
+			+ ' <!-- Modal -->'
+			+ '<button class="btn btn-box-tool"   data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'
+			+ '</div><!-- /.box-tools pull-right -->'
+			+ '</div> <!-- /.box-header -->'
+			+ '<div class="box-body">'
+			+ ' Box class: <code>.box</code>'
+			+ '<p id="textClass">'
+			+ ' amber, microbrewery abbey hydrometer, brewpub ale lauter tun saccharification oxidized barrel.'
+			+ 'berliner weisse wort chiller adjunct hydrometer alcohol aau!'
+			+ 'sour/acidic sour/acidic chocolate malt ipa ipa hydrometer.'
+			+ '</p>'
+			+ '</div><!-- /.box-body -->'
+			+ '<div class="box-footer">'
+			+ '<code>.box-footer</code>'
+			+ '</div><!-- /.box-footer-->'
+			+ '</div><!-- /.box-->'
+			+ '<div class="modal fade"    id="model"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'
+			+ '<div class="modal-dialog">'
+			+ '<div class="modal-content">'
+			+ '<div class="modal-header">'
+			+ '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+			+ '<ul class="nav nav-pills">'
+			+ '<li class="active"><a href="#tab_1" data-toggle="tab">General</a></li>'
+			+ '<li><a href="#tab_2" data-toggle="tab">Edit Test</a></li>'
+			+ '</ul>'
+			+ ' <div class="tab-content">'
+			+ ' <div class="tab-pane active" id="tab_1">'
+			+ '<h4 class="box-title"><b>General options</b></h4>'
+			+ '<table class="table no-margin no-border no-padding">'
+			+ '<tr><td>Title</td><td>Span</td></tr>'
+			+ '<tr><td><input type="text" id="test" value="" ></input></td>'
+			+ '<td>'
+			+ '<select id="select" >'
+			+ '<option  value="4" >4</option>'
+			+ '<option  value="5" >5</option>'
+			+ '<option  value="6" >6</option>'
+			+ '<option  value="7"  >7</option>'
+			+ '<option  value="8"  >8</option>'
+			+ '<option  value="9"  >9</option>'
+			+ '<option  value="10" >10</option>'
+			+ '<option  value="11" >11</option>'
+			+ '<option  value="12" >12</option>'
+			+ '</select>'
+			+ '</td>'
+			+ '</tr>'
+			+ '<tr><td></td><td align="right">'
+			+ '</td></tr>'
+			+ '</table>'
+			+ '</div><!-- /.tab-pane -->'
+			+ ' <div class="tab-pane" id="tab_2">'
+			+ '<table class="table no-margin no-border no-padding" >'
+			+ '<tr><td>Mode</td><td id="fontSize">Font Size</td></tr>'
+			+ '<tr><td>'
+			+ '<select id="modelOptions">'
+			+ '<option  value="text" onclick="javascript:Dashboard.showOptions();">text</option>'
+			+ '<option  value="markdown" onclick="javascript:Dashboard.hideOptions();">markdown</option>'
+			+ '<option  value="html" onclick="javascript:Dashboard.hideOptions();">html</option>'
+			+ '</select>'
+			+ '</td>'
+			+ '<td>'
+			+ '<select id="FontOptions">'
+			+ '<option  value="10%" onclick="javascript:Dashboard.textclassSize();">10%</option>'
+			+ '<option  value="100%" onclick="javascript:Dashboard.textclassSize();">100%</option>'
+			+ '<option  value="200%" onclick="javascript:Dashboard.textclassSize();">200%</option>'
+			+ '</select>'
+			+ '</td></tr>'
+			+ '<tr><td>Content</td><td></td></tr>'
+			+ '<tr><td colspan="2">'
+			+ '<textarea  id="textarea"  style="font-size:12px; width: 100%; height: 125px;  line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>'
+			+ '</td></tr>'
+			+ '<tr><td colspan="2" align="right">'
+			+ '</td></tr>' + '</table>' + '  </div><!-- /.tab-pane -->'
+			+ '<button   type="button" class="btn btn-default" data-dismiss="modal">Close</button>'
+			+ '<button   type="button" class="btn btn-primary" data-dismiss="modal" id="sub">Confirm</button>'
+			+ ' </div><!-- /.tab-content -->'
+			+ '</div><!-- modal-header-->' + '</div><!--modal-content-->'
+			+ ' <div class="modal-footer">'
+			+ '</div><!-- /.modal-footer -->'
+			
+			+ '</div><!-- /.modal-dialog -->' + '</div><!-- /.modal -->';
 //         var data = '<div class="box box-default">'+
 //   '<div class="box-header with-border">'+
 //     '<h3 class="box-title">Tooltips on buttons</h3>'+
@@ -340,7 +423,30 @@ $(function () {
 // '</div><!-- /.box -->';
         var target_id = $(obj).data("target_id");
         window.parent.$('#'+target_id).append(data);
-        
+     // zhangshaoyu 2015-3-18 
+		// TODO: display style when return to box 
+		var obja = {};
+		$(".change-text").unbind().on("click",
+				function(e) {
+					obja = $.extend(obja, $(this).parents(
+							"section.connectedSortable"));
+					   $("#test").val(obja.find('h3').html());
+					   $("#textarea").val(obja.find('p').html());
+					var sub;
+					var sub2;
+					$("#sub").unbind().on("click", function() {
+						sub = $("#test").val();
+						obja.find("h3").html(sub);
+						 var att=$("select").val();
+						 obja.removeClass(obja.attr("class")).addClass("col-lg-"+att+" connectedSortable ui-sortable");
+					
+						var sizeTextarea = $("#FontOptions").val();
+						sub2 = $("#textarea").val();
+						obja.find("p").html(sub2).css({
+							"font-size" : sizeTextarea
+						});
+					});
+				});
 
         // window.parent.Dashboard.savePreferences();
         // window.parent.Dashboard.addWidgetControls();
