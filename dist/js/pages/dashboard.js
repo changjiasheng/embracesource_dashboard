@@ -409,7 +409,6 @@ $(function () {
 			+ '</div><!-- modal-header-->' + '</div><!--modal-content-->'
 			+ ' <div class="modal-footer">'
 			+ '</div><!-- /.modal-footer -->'
-			
 			+ '</div><!-- /.modal-dialog -->' + '</div><!-- /.modal -->';
 //         var data = '<div class="box box-default">'+
 //   '<div class="box-header with-border">'+
