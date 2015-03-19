@@ -34,15 +34,15 @@ $(function () {
   $(".textarea").wysihtml5();
 
   $('.daterange').daterangepicker(
-          {
-            ranges: {
-              'Today': [moment(), moment()],
-              'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-              'Last 7 Days': [moment().subtract('days', 6), moment()],
-              'Last 30 Days': [moment().subtract('days', 29), moment()],
-              'This Month': [moment().startOf('month'), moment().endOf('month')],
-              'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-            },
+		  {
+	            ranges: {
+	              'Today': [moment(), moment()],
+	              'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+	              'Last 7 Days': [moment().subtract('days', 6), moment()],
+	              'Last 30 Days': [moment().subtract('days', 29), moment()],
+	              'This Month': [moment().startOf('month'), moment().endOf('month')],
+	              'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+	            },
             startDate: moment().subtract('days', 29),
             endDate: moment()
           },
@@ -331,6 +331,8 @@ $(function () {
 			+ ' <button class="btn btn-box-tool change-text" data-widget="edit"  data-toggle="modal" data-target="#model"><i class="fa fa-edit"></i></button>'
 			+ ' <!-- Modal -->'
 			+ '<button class="btn btn-box-tool"   data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'
+		    + '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeSmall(this);" ><i class="fa fa-arrow-left"></i></button>'
+            + '<button class="btn btn-box-tool" onclick="javascript:Dashboard.resizeLarge(this);" ><i class="fa fa-arrow-right"></i></button>'
 			+ '</div><!-- /.box-tools pull-right -->'
 			+ '</div> <!-- /.box-header -->'
 			+ '<div class="box-body">'
