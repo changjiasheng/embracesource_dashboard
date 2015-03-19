@@ -500,13 +500,7 @@ $(function () {
 		  window.parent.Dashboard.chartConfig();//add config
 		  $('.ui-sortable:last').find('.charts').css("width",'480px').css("height","220px");
 		  //add charts
-		  if(type =='bar'){
-			  window.parent.Dashboard.getChart('bar',obj);
-		  }else if(type == 'line'){
-			  window.parent.Dashboard.getChart('line',obj);
-		  }else if(type == 'pie'){
-			  window.parent.Dashboard.getChart('pie',obj);
-		  }
+		  window.parent.Dashboard.getChart(type,obj);
 		  //TODO close and collapse active
 		  $.AdminLTE.boxWidget.activate();
 		  return false;
@@ -563,6 +557,11 @@ $(function () {
                      padding: 5,    // [5, 10, 15, 20]
                      data:['蒸发量','降水量']
                  },
+                 grid:{
+         	    	x: 40,
+         	    	x2: 20,
+         	    	y: 40
+         	    },
                  toolbox: {
                  	show : true,
          	        orient: 'horizontal',      // 布局方式，默认为水平布局，可选为：
@@ -581,7 +580,7 @@ $(function () {
          	        showTitle: true,
          	        feature : {
          	            mark : {
-         	                show : true,
+         	                show : false,
          	                title : {
          	                    mark : '辅助线-开关',
          	                    markUndo : '辅助线-删除',
@@ -669,10 +668,15 @@ $(function () {
                     padding: 5,    // [5, 10, 15, 20]
         	        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
         	    },
+        	    grid:{
+        	    	x: 40,
+        	    	x2: 20,
+        	    	y: 40
+        	    },
         	    toolbox: {
         	        show : true,
         	        feature : {
-        	            mark : {show: true},
+        	            mark : {show: false},
         	            dataView : {show: true, readOnly: false},
         	            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
         	            restore : {show: true},
@@ -747,7 +751,7 @@ $(function () {
         	        show : true,
         	        orient: 'vertical',
         	        feature : {
-        	            mark : {show: true},
+        	            mark : {show: false},
         	            dataView : {show: true, readOnly: false},
         	            restore : {show: true},
         	            saveAsImage : {show: true}
