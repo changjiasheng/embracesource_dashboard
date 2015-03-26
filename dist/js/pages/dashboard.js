@@ -363,7 +363,7 @@ $(function () {
 			+ '<tr><td>Title</td><td>Span</td></tr>'
 			+ '<tr><td><input type="text" id="test" value="" ></input></td>'
 			+ '<td>'
-			+ '<select id="select" >'
+			+ '<select>'
 			+ '<option  value="4" >4</option>'
 			+ '<option  value="5" >5</option>'
 			+ '<option  value="6" >6</option>'
@@ -466,7 +466,7 @@ $(function () {
               '<h3 class="box-title">ECharts - '+type+'Chart</h3>'+
               '<div class="box-tools pull-right">'+
                 '<button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>'+
-                ' <button class="btn btn-box-tool" data-widget="edit"  data-toggle="modal" data-target="#echarts"><i class="fa fa-edit"></i></button>'+
+                ' <button class="btn btn-box-tool change-echarts" data-widget="edit"  data-toggle="modal" data-target="#echarts"><i class="fa fa-edit"></i></button>'+
                 '<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-times"></i></button>'+
                 '<button class="btn btn-box-tool" onclick="javascript:Dashboard.chartSmall(this,\''+type+'\');" ><i class="fa fa-arrow-left"></i></button>'+
                 '<button class="btn btn-box-tool" onclick="javascript:Dashboard.chartLarge(this,\''+type+'\');" ><i class="fa fa-arrow-right"></i></button>'+
@@ -480,20 +480,115 @@ $(function () {
             ' <div class="modal-dialog">'+
              '  <div class="modal-content">'+
               '   <div class="modal-header">'+
-               '    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-                '   <h4 class="modal-title" id="myModalLabel">Modal title</h4>'+
-                 '</div>'+
-                 '<div class="modal-body">...'+
-                ' </div>'+
-                ' <div class="modal-footer">'+
-                 '  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-                  ' <button type="button" class="btn btn-primary">Save changes</button>'+
-                ' </div>'+
-             '  </div>'+
-            ' </div>'+
-         '  </div>';
+               '    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+               + '<ul class="nav nav-pills">'
+   			'<li class="active"><a href="#echarts_1" data-toggle="tab">General</a></li>'
+   			+ '<li><a href="#echarts_2" data-toggle="tab">Metrics</a></li>'
+   			+ '</ul>'
+   			+ ' <div class="tab-content">'
+   			+ ' <div class="tab-pane active" id="echarts_1">'
+   			+ '<h4 class="box-title"><b>General options</b></h4>'
+			+ '<table class="table no-margin no-border no-padding">'
+			+ '<tr><td>Title</td><td>Span</td></tr>'
+			+ '<tr><td><input type="text" id="testEcharts" value="" ></input></td>'
+			+ '<td>'
+			+ '<select>'
+			+ '<option  value="280px">0</option>'
+			+ '<option  value="300px">1</option>'
+			+ '<option  value="350px">2</option>'
+			+ '<option  value="400px">3</option>'
+			+ '<option  value="450px">4</option>'
+			+ '<option  value="500px">5</option>'
+			+ '<option  value="650px">6</option>'
+			+ '<option  value="700px">7</option>'
+			+ '<option  value="750px">8</option>'
+			+ '<option  value="800px">9</option>'
+			+ '<option  value="850px">10</option>'
+			+ '<option  value="900px">11</option>'
+			+ '<option  value="1000px">12</option>'
+			+ '</select>'
+			+ '</td>'
+			+ '</tr>'
+			+ '<tr><td></td><td align="right">'
+			+ '</td></tr>'
+			+ '</table>'
+			+ '</div><!-- /.tab-pane -->'
+			+ '<div class="tab-pane echarts_2" id="echarts_2">'
+			+ '<table class="table no-margin no-border no-padding">'
+			+'<tr><td>&nbsp;&nbsp;<li class="fa fa-eye"></li>&nbsp;&nbsp;&nbsp;<input type="text"    value="metric name"></td>'
+			+'<td><li  class="fa fa-warning" style="color:#FFD700" ></li>Aaggregator'
+			+ '<select  style="width:100px;" >'
+			+ '<option  value="sum">sum</option>'
+			+ '<option  value="acg">acg</option>'
+			+ '<option  value="min">min</option>'
+			+ '<option  value="max">max</option>'
+			+ '<option  value="dev">dev</option>'
+			+ '<option  value="zimsum">zimsum</option>'
+			+ '<option  value="minmin">minmin</option>'
+			+ '<option  value="minmax">minmax</option>'
+			+ '</select></td>'
+		    +'<td align="right"><li class="fa fa-gear"  style="color:#3A5FCD;cursor:pointer"></li>'
+	    	+'<li class="fa fa-times"  style="color:#3A5FCD;cursor:pointer"></li></td</tr>'
+     	    +'<tr><td colspan="3">Alias:<input type="text" value="series alias"></td></tr>'
+     	    +'<tr><td colspan="3"  style="font-weight:bold">Tags:</td></tr>'
+     	    +'<tr><td colspan="3"><input type="text" value="key" class="key" style="display:none">'
+     	    +'<input type="text" value="value" class="value" style="display:none">'
+     	    +'<span class="fa fa-plus-circle"  style="color:#3A5FCD;cursor:pointer"/></td></tr></table>'
+   			+'</div><!-- /.tab-pane -->'
+			+ ' </div><!-- /.tab-content -->'
+			+ '<button   type="button" class="btn btn-default" data-dismiss="modal" >Close</button>'
+			+ '<button   type="button" class="btn btn-primary" data-dismiss="modal" id="subEcharts">Confirm</button>'
+			+ '</div><!-- modal-header-->' + '</div><!--modal-content-->'
+			+ ' <div class="modal-footer">'
+			+ '</div><!-- /.modal-footer -->'
+			+ '</div><!-- /.modal-dialog -->' + '</div><!-- /.modal -->';
 		  var target_id = $(obj).data("target_id");
 		  window.parent.$('#'+target_id).append(data);
+		// zhangshaoyu 2015-3-23 
+//		// TODO:to edit  the echarts's popups
+		  var obja = {};
+			$(".change-echarts").unbind().on("click",
+					function(e) {
+						obja = $.extend(obja, $(this).parents(
+								"section.connectedSortable"));
+						
+						   $("#testEcharts").val(obja.find('h3').html());
+
+						// TODO:to clone  the tab-content's content
+						$(".fa-gear").unbind().on("click", function() {
+                        $(".tab-content").append($(this).parents(".echarts_2").clone(true));						
+						});
+						
+						// TODO:to remove  the tab-content's content
+						$(".fa-times").unbind().on("click", function() {						
+						$(this).parents(".echarts_2").remove();
+						});
+						
+						// TODO:Content editing tag and display or hide key
+						   $(".fa-plus-circle").click( function() {
+							   $(this).parents(".echarts_2").find(".key,.value").show();
+							});
+						   
+						   $(".fa-plus-circle").dblclick(function() {
+							      $(this).parents(".echarts_2").find(".key,.value").hide();
+							      var key=$(this).parents(".echarts_2").find(".key").val();
+							      var value=$(this).parents(".echarts_2").find(".value").val();
+							      var append='<input type="text"   style="cursor:pointer"  class="keyValue" value="' + key + '=' + value + '"  />'
+							                  +'<li class="fa fa-times"  style="cursor:pointer" onclick="removeTest(this)"/>';
+							      $(this).parents(".echarts_2").find(".key").before(append);
+							      $(this).parents(".echarts_2").find(".key").val("key");
+							      $(this).parents(".echarts_2").find(".value").val("value");
+						   });
+						
+						// TODO:to change  the charts's size and back to contents
+						var sub;
+						$("#subEcharts").unbind().on("click", function() {
+							sub = $("#testEcharts").val();
+							obja.find("h3").html(sub);
+							var att=$("select").val();
+							obja.attr("style","overflow:hidden;height:280px;width:"+att+";float:left;");
+						});
+					});
 		  
 		  window.parent.Dashboard.makeSortable();
 		  //make echarts
@@ -879,4 +974,9 @@ $(function () {
        return false;
     }
    };
+
+    function  removeTest(obj){
+  	  $(obj).prev(".keyValue").remove();
+  	  $(obj).remove();
+    } 
 
