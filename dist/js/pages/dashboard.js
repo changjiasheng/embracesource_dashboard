@@ -482,7 +482,7 @@ $(function () {
               '   <div class="modal-header">'+
                '    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
                + '<ul class="nav nav-pills">'
-   			'<li class="active"><a href="#echarts_1" data-toggle="tab">General</a></li>'
+   			+ '<li class="active"><a href="#echarts_1" data-toggle="tab">General</a></li>'
    			+ '<li><a href="#echarts_2" data-toggle="tab">Metrics</a></li>'
    			+ '</ul>'
    			+ ' <div class="tab-content">'
@@ -595,7 +595,13 @@ $(function () {
 		  window.parent.Dashboard.chartConfig();//add config
 		  $('.ui-sortable:last').find('.charts').css("width",'480px').css("height","220px");
 		  //add charts
-		  window.parent.Dashboard.getChart(type,obj);
+		  if(type =='bar'){
+			  window.parent.Dashboard.getChart('bar',obj);
+		  }else if(type == 'line'){
+			  window.parent.Dashboard.getChart('line',obj);
+		  }else if(type == 'pie'){
+			  window.parent.Dashboard.getChart('pie',obj);
+		  }
 		  //TODO close and collapse active
 		  $.AdminLTE.boxWidget.activate();
 		  return false;
@@ -652,11 +658,6 @@ $(function () {
                      padding: 5,    // [5, 10, 15, 20]
                      data:['蒸发量','降水量']
                  },
-                 grid:{
-         	    	x: 40,
-         	    	x2: 20,
-         	    	y: 40
-         	    },
                  toolbox: {
                  	show : true,
          	        orient: 'horizontal',      // 布局方式，默认为水平布局，可选为：
@@ -675,7 +676,7 @@ $(function () {
          	        showTitle: true,
          	        feature : {
          	            mark : {
-         	                show : false,
+         	                show : true,
          	                title : {
          	                    mark : '辅助线-开关',
          	                    markUndo : '辅助线-删除',
@@ -763,15 +764,10 @@ $(function () {
                     padding: 5,    // [5, 10, 15, 20]
         	        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
         	    },
-        	    grid:{
-        	    	x: 40,
-        	    	x2: 20,
-        	    	y: 40
-        	    },
         	    toolbox: {
         	        show : true,
         	        feature : {
-        	            mark : {show: false},
+        	            mark : {show: true},
         	            dataView : {show: true, readOnly: false},
         	            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
         	            restore : {show: true},
@@ -846,7 +842,7 @@ $(function () {
         	        show : true,
         	        orient: 'vertical',
         	        feature : {
-        	            mark : {show: false},
+        	            mark : {show: true},
         	            dataView : {show: true, readOnly: false},
         	            restore : {show: true},
         	            saveAsImage : {show: true}
@@ -979,4 +975,4 @@ $(function () {
   	  $(obj).prev(".keyValue").remove();
   	  $(obj).remove();
     } 
-    
+
