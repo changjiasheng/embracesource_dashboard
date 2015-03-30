@@ -493,12 +493,6 @@ $(function () {
 			+ '<tr><td><input type="text" id="testEcharts" value="" ></input></td>'
 			+ '<td>'
 			+ '<select>'
-			+ '<option  value="280px">0</option>'
-			+ '<option  value="300px">1</option>'
-			+ '<option  value="350px">2</option>'
-			+ '<option  value="400px">3</option>'
-			+ '<option  value="450px">4</option>'
-			+ '<option  value="500px">5</option>'
 			+ '<option  value="650px">6</option>'
 			+ '<option  value="700px">7</option>'
 			+ '<option  value="750px">8</option>'
@@ -545,7 +539,24 @@ $(function () {
 		  var target_id = $(obj).data("target_id");
 		  window.parent.$('#'+target_id).append(data);
 		// zhangshaoyu 2015-3-23 
-//		// TODO:to edit  the echarts's popups
+		// TODO:Content editing tag and display or hide key
+		   $(".fa-plus-circle").click( function() {
+			   $(this).parents(".echarts_2").find(".key,.value").show();
+			});
+		   
+		   $(".fa-plus-circle").dblclick(function() {
+			      $(this).parents(".echarts_2").find(".key,.value").hide();
+			      var key=$(this).parents(".echarts_2").find(".key").val();
+			      var value=$(this).parents(".echarts_2").find(".value").val();
+			      var append='<input type="text"   style="cursor:pointer"  class="keyValue" value="' + key + '=' + value + '"  />'
+			                  +'<li class="fa fa-times"  style="cursor:pointer" onclick="removeTest(this)"/>';
+			      $(this).parents(".echarts_2").find(".key").before(append);
+			      $(this).parents(".echarts_2").find(".key").val("key");
+			      $(this).parents(".echarts_2").find(".value").val("value");
+		   });
+		  
+		  
+		// TODO:to edit  the echarts's popups
 		  var obja = {};
 			$(".change-echarts").unbind().on("click",
 					function(e) {
@@ -563,22 +574,6 @@ $(function () {
 						$(".fa-times").unbind().on("click", function() {						
 						$(this).parents(".echarts_2").remove();
 						});
-						
-						// TODO:Content editing tag and display or hide key
-						   $(".fa-plus-circle").click( function() {
-							   $(this).parents(".echarts_2").find(".key,.value").show();
-							});
-						   
-						   $(".fa-plus-circle").dblclick(function() {
-							      $(this).parents(".echarts_2").find(".key,.value").hide();
-							      var key=$(this).parents(".echarts_2").find(".key").val();
-							      var value=$(this).parents(".echarts_2").find(".value").val();
-							      var append='<input type="text"   style="cursor:pointer"  class="keyValue" value="' + key + '=' + value + '"  />'
-							                  +'<li class="fa fa-times"  style="cursor:pointer" onclick="removeTest(this)"/>';
-							      $(this).parents(".echarts_2").find(".key").before(append);
-							      $(this).parents(".echarts_2").find(".key").val("key");
-							      $(this).parents(".echarts_2").find(".value").val("value");
-						   });
 						
 						// TODO:to change  the charts's size and back to contents
 						var sub;
